@@ -1,60 +1,96 @@
 const header = document.querySelector(".site-header");
 const atlas = document.querySelector("[data-atlas]");
-const atlasStage = document.querySelector("[data-atlas-stage]");
-const atlasStageCopy = document.querySelector("[data-atlas-stage-copy]");
-const atlasSteps = Array.from(document.querySelectorAll("[data-atlas-copy-step]"));
+const atlasTitle = document.querySelector("[data-atlas-title]");
+const atlasSummary = document.querySelector("[data-atlas-summary]");
+const atlasMetric = document.querySelector("[data-atlas-metric]");
+const atlasProof = document.querySelector("[data-atlas-proof]");
+const atlasSteps = Array.from(document.querySelectorAll("[data-atlas-step]"));
+const atlasDots = Array.from(document.querySelectorAll("[data-atlas-dot]"));
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-const atlasLabels = [
-  ["Zurich", "Swiss market credibility"],
-  ["DACH", "OTA revenue leadership"],
-  ["Europe", "Leisure-tech market expansion"],
-  ["Launchpad", "Startup ecosystem builder"],
+const atlasChapters = [
+  {
+    title: "Swiss market credibility",
+    summary: "Built local trust as Managing Director Switzerland and legal representative for Amadeus.",
+    metric: "15+ years",
+    proof: "Executive continuity inside Amadeus",
+  },
+  {
+    title: "DACH OTA revenue leadership",
+    summary: "Led commercial relationships across leisure and air-focused online travel agency portfolios.",
+    metric: "13M€",
+    proof: "Annual OTA revenue responsibility",
+  },
+  {
+    title: "European expansion",
+    summary: "Expanded leisure technology across France, Benelux, Scandinavia, and CESE.",
+    metric: "6M€",
+    proof: "International P&L ownership",
+  },
+  {
+    title: "Startup ecosystem builder",
+    summary: "Leads Amadeus Launchpad Europe from scouting through onboarding and graduation.",
+    metric: "1.5M€",
+    proof: "ACV responsibility",
+  },
 ];
 
 let rafId = null;
+let activeAtlasIndex = -1;
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-const lerp = (start, end, progress) => start + (end - start) * progress;
 
-const setAtlasStage = (progress) => {
-  const index = Math.min(atlasLabels.length - 1, Math.floor(progress * atlasLabels.length));
-  const [label, copy] = atlasLabels[index];
+const setAtlasChapter = (index) => {
+  const safeIndex = Math.round(clamp(index, 0, atlasChapters.length - 1));
+  if (safeIndex === activeAtlasIndex) return;
 
-  if (atlasStage) atlasStage.textContent = label;
-  if (atlasStageCopy) atlasStageCopy.textContent = copy;
+  activeAtlasIndex = safeIndex;
+  const chapter = atlasChapters[safeIndex];
+  if (atlas) atlas.dataset.atlasIndex = String(safeIndex);
+  if (atlasTitle) atlasTitle.textContent = chapter.title;
+  if (atlasSummary) atlasSummary.textContent = chapter.summary;
+  if (atlasMetric) atlasMetric.textContent = chapter.metric;
+  if (atlasProof) atlasProof.textContent = chapter.proof;
 
-  atlasSteps.forEach((step, stepIndex) => {
-    step.classList.toggle("is-active", stepIndex === index);
-  });
+  atlasSteps.forEach((step, stepIndex) => step.classList.toggle("is-active", stepIndex === safeIndex));
+  atlasDots.forEach((dot, dotIndex) => dot.classList.toggle("is-active", dotIndex === safeIndex));
 };
 
 const getAtlasProgress = () => {
   if (!atlas) return 0;
   const rect = atlas.getBoundingClientRect();
   const viewport = window.innerHeight || document.documentElement.clientHeight;
-  const denominator = Math.max(1, rect.height - viewport * 0.82);
-  return clamp((viewport * 0.92 - rect.top) / denominator);
+  return clamp((viewport * 0.58 - rect.top) / Math.max(1, rect.height - viewport));
+};
+
+const getActiveAtlasIndex = () => {
+  if (!atlasSteps.length) return 0;
+  const viewport = window.innerHeight || document.documentElement.clientHeight;
+  const target = viewport * 0.52;
+  let bestIndex = 0;
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  atlasSteps.forEach((step, index) => {
+    const rect = step.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const distance = Math.abs(center - target);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex;
 };
 
 const updateAtlas = () => {
   if (!atlas) return;
-
-  if (motionQuery.matches || window.innerWidth <= 680) {
-    atlas.style.setProperty("--atlas-progress", "1");
-    atlas.style.setProperty("--atlas-scale", "0.82");
-    atlas.style.setProperty("--atlas-x", "-6%");
-    atlas.style.setProperty("--atlas-y", "-4%");
-    setAtlasStage(1);
-    return;
-  }
-
-  const progress = getAtlasProgress();
+  const index = getActiveAtlasIndex();
+  const rawProgress = getAtlasProgress();
+  const chapterProgress = atlasChapters.length <= 1 ? 1 : index / (atlasChapters.length - 1);
+  const progress = motionQuery.matches ? chapterProgress : Math.max(rawProgress, chapterProgress * 0.82);
   atlas.style.setProperty("--atlas-progress", progress.toFixed(3));
-  atlas.style.setProperty("--atlas-scale", lerp(1.48, 0.82, progress).toFixed(3));
-  atlas.style.setProperty("--atlas-x", `${lerp(10, -6, progress).toFixed(2)}%`);
-  atlas.style.setProperty("--atlas-y", `${lerp(8, -4, progress).toFixed(2)}%`);
-  setAtlasStage(progress);
+  setAtlasChapter(index);
 };
 
 const updatePage = () => {
