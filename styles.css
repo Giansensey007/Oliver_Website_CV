@@ -434,8 +434,8 @@ h3 {
   display: grid;
   align-content: center;
   justify-items: center;
-  min-height: calc(100vh - 120px);
-  padding: clamp(24px, 4vw, 56px);
+  min-height: min(620px, calc(100vh - 140px));
+  padding: clamp(24px, 3vw, 44px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
@@ -472,7 +472,7 @@ h3 {
 }
 
 .boarding-pass {
-  --pass-w: clamp(280px, 38vw, 560px);
+  --pass-w: clamp(280px, 38vw, 540px);
   position: relative;
   width: var(--pass-w);
   aspect-ratio: 1.62 / 1;
@@ -1138,9 +1138,13 @@ h3 {
   .boarding-build__stage {
     top: 86px;
     min-height: 0;
-    aspect-ratio: 1.7 / 1;
-    padding: clamp(18px, 4vw, 40px);
+    aspect-ratio: 1.55 / 1;
+    padding: clamp(18px, 4vw, 36px);
     z-index: 5;
+  }
+
+  .boarding-pass {
+    --pass-w: min(560px, calc(100vw - 80px));
   }
 
   .boarding-build__chapters {
