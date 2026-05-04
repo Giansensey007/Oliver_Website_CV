@@ -10,14 +10,14 @@ const ease = (t) => 1 - Math.pow(1 - clamp(t), 3);
 const subProgress = (progress, start, end) => ease(clamp((progress - start) / (end - start)));
 
 const partRanges = {
-  shell: [0.02, 0.18],
-  header: [0.08, 0.22],
-  passenger: [0.18, 0.34],
-  route: [0.32, 0.5],
-  details: [0.5, 0.66],
-  stub: [0.62, 0.78],
-  barcode: [0.74, 0.9],
-  stamp: [0.9, 1.0],
+  shell: [0.0, 0.14],
+  header: [0.06, 0.2],
+  passenger: [0.16, 0.32],
+  route: [0.3, 0.46],
+  details: [0.46, 0.6],
+  stub: [0.58, 0.72],
+  barcode: [0.7, 0.85],
+  stamp: [0.82, 0.96],
 };
 
 const legRanges = [
