@@ -30,7 +30,7 @@
       <span>Oliver Käsermann</span>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#atlas">Atlas</a>
+      <a href="#journey">Journey</a>
       <a href="#experience">Experience</a>
       <a href="#expertise">Expertise</a>
       <a href="#education">Education</a>
@@ -72,58 +72,121 @@
       </div>
     </section>
 
-    <section class="strategy-atlas section-shell" id="atlas" aria-labelledby="atlas-title" data-atlas data-atlas-index="0">
-      <div class="atlas-grid-layout">
-        <div class="atlas-stage" aria-live="polite">
-          <p class="eyebrow">Executive Growth Story</p>
-          <h2 id="atlas-title" data-atlas-title>Swiss market credibility</h2>
-          <p data-atlas-summary>
-            Built local trust as Managing Director Switzerland and legal representative for Amadeus.
-          </p>
+    <section class="boarding-build" id="journey" aria-labelledby="journey-title" data-build data-build-index="0">
+      <div class="boarding-build__intro section-shell">
+        <p class="eyebrow">Career boarding pass</p>
+        <h2 id="journey-title">Scroll to assemble Oliver's boarding pass.</h2>
+        <p class="boarding-build__lede">
+          Each part of the pass clicks into place as you scroll, mapping 15+ years at Amadeus
+          from Swiss market trust to a pan-European startup ecosystem.
+        </p>
+      </div>
 
-          <div class="atlas-proof-card">
-            <span data-atlas-metric>15+ years</span>
-            <strong data-atlas-proof>Executive continuity inside Amadeus</strong>
+      <div class="boarding-build__layout section-shell">
+        <div class="boarding-build__stage" aria-hidden="true">
+          <div class="boarding-pass" data-pass>
+            <div class="pass-part pass-part--shell" data-pass-part="shell"></div>
+
+            <div class="pass-part pass-part--header" data-pass-part="header">
+              <span class="pass-airline">AMADEUS</span>
+              <span class="pass-tag">Boarding Pass</span>
+            </div>
+
+            <div class="pass-part pass-part--passenger" data-pass-part="passenger">
+              <span class="pass-label">Passenger</span>
+              <strong>Oliver Käsermann</strong>
+              <span class="pass-sub">Senior travel-tech executive</span>
+            </div>
+
+            <div class="pass-part pass-part--route" data-pass-part="route">
+              <div class="pass-leg" data-pass-leg="0">
+                <span class="pass-iata">ZRH</span>
+                <span class="pass-city">Zurich</span>
+              </div>
+              <span class="pass-arrow" data-pass-arrow="0">→</span>
+              <div class="pass-leg" data-pass-leg="1">
+                <span class="pass-iata">FRA</span>
+                <span class="pass-city">DACH</span>
+              </div>
+              <span class="pass-arrow" data-pass-arrow="1">→</span>
+              <div class="pass-leg" data-pass-leg="2">
+                <span class="pass-iata">CDG</span>
+                <span class="pass-city">Europe</span>
+              </div>
+              <span class="pass-arrow" data-pass-arrow="2">→</span>
+              <div class="pass-leg" data-pass-leg="3">
+                <span class="pass-iata">BCN</span>
+                <span class="pass-city">Launchpad</span>
+              </div>
+            </div>
+
+            <div class="pass-part pass-part--details" data-pass-part="details">
+              <div>
+                <span class="pass-label">Gate</span>
+                <strong>OTA · Leisure</strong>
+              </div>
+              <div>
+                <span class="pass-label">Seat</span>
+                <strong>Head of Launchpad</strong>
+              </div>
+              <div>
+                <span class="pass-label">Boarding</span>
+                <strong>2009 → Present</strong>
+              </div>
+              <div>
+                <span class="pass-label">Class</span>
+                <strong>Executive</strong>
+              </div>
+            </div>
+
+            <div class="pass-part pass-part--stub" data-pass-part="stub">
+              <span class="pass-label">PNR</span>
+              <strong>AMA · LP · EU</strong>
+              <span class="pass-sub">15+ years at Amadeus</span>
+            </div>
+
+            <div class="pass-part pass-part--barcode" data-pass-part="barcode" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="pass-part pass-part--stamp" data-pass-part="stamp">Boarded</div>
           </div>
 
-          <div class="atlas-map" aria-hidden="true">
-            <div class="atlas-route-line"></div>
-            <span class="atlas-node node-zurich" data-atlas-node="0">Zurich</span>
-            <span class="atlas-node node-dach" data-atlas-node="1">DACH</span>
-            <span class="atlas-node node-europe" data-atlas-node="2">Europe</span>
-            <span class="atlas-node node-launchpad" data-atlas-node="3">Launchpad</span>
+          <div class="boarding-build__progress" aria-hidden="true">
+            <div class="boarding-build__progress-fill"></div>
           </div>
-
-          <ol class="atlas-progress" aria-label="Career chapters">
-            <li data-atlas-dot="0">Zurich</li>
-            <li data-atlas-dot="1">DACH</li>
-            <li data-atlas-dot="2">Europe</li>
-            <li data-atlas-dot="3">Launchpad</li>
-          </ol>
         </div>
 
-        <div class="atlas-scroll-steps" aria-label="Scroll story chapters">
-          <article class="atlas-step is-active" data-atlas-step="0" data-reveal>
-            <span>01 · Zurich</span>
+        <ol class="boarding-build__chapters" aria-label="Career chapters">
+          <li class="boarding-chapter" data-build-step="0" data-reveal>
+            <span class="boarding-chapter__index">01</span>
+            <h3>Boarding the Amadeus journey</h3>
+            <p>15+ years at Amadeus IT Group form the canvas of this pass — executive continuity across product, e-commerce, leisure, and travel-tech leadership.</p>
+          </li>
+          <li class="boarding-chapter" data-build-step="1" data-reveal>
+            <span class="boarding-chapter__index">02</span>
             <h3>Swiss market credibility</h3>
-            <p>Legal representative and Managing Director for Amadeus in Switzerland, building local trust and cross-segment visibility.</p>
-          </article>
-          <article class="atlas-step" data-atlas-step="1" data-reveal>
-            <span>02 · DACH</span>
-            <h3>OTA revenue leadership</h3>
-            <p>Led sales and account management for leisure and air-focused online travel agencies across DACH.</p>
-          </article>
-          <article class="atlas-step" data-atlas-step="2" data-reveal>
-            <span>03 · Europe</span>
-            <h3>International expansion</h3>
-            <p>Expanded leisure technology into France, Benelux, Scandinavia, and CESE with international P&amp;L responsibility.</p>
-          </article>
-          <article class="atlas-step" data-atlas-step="3" data-reveal>
-            <span>04 · Launchpad</span>
-            <h3>Startup ecosystem builder</h3>
-            <p>Leads Amadeus Launchpad Europe from scouting and deal execution through onboarding, graduation, and ecosystem growth.</p>
-          </article>
-        </div>
+            <p>Managing Director Switzerland and legal representative for Amadeus, building C-level trust and a Swiss leisure technology footprint.</p>
+          </li>
+          <li class="boarding-chapter" data-build-step="2" data-reveal>
+            <span class="boarding-chapter__index">03</span>
+            <h3>Zurich → Frankfurt → Paris → Barcelona</h3>
+            <p>The route plots the expansion: from Switzerland into DACH OTA leadership (13M€), across France, Benelux, Scandinavia, and CESE (6M€ international P&amp;L).</p>
+          </li>
+          <li class="boarding-chapter" data-build-step="3" data-reveal>
+            <span class="boarding-chapter__index">04</span>
+            <h3>OTA, leisure, and platform portfolio</h3>
+            <p>Gate &amp; seat read the breadth: online travel agencies, leisure dynamic packaging, mobility, automation, and startup commercial models.</p>
+          </li>
+          <li class="boarding-chapter" data-build-step="4" data-reveal>
+            <span class="boarding-chapter__index">05</span>
+            <h3>Boarded for Launchpad Europe</h3>
+            <p>The barcode and "Boarded" stamp seal the pass: leading Amadeus Launchpad Europe — scouting, onboarding, and graduating travel-tech startups across the continent.</p>
+          </li>
+        </ol>
       </div>
     </section>
 

@@ -1,98 +1,103 @@
 const header = document.querySelector(".site-header");
 const heroCard = document.querySelector(".hero-card");
-const atlas = document.querySelector("[data-atlas]");
-const atlasTitle = document.querySelector("[data-atlas-title]");
-const atlasSummary = document.querySelector("[data-atlas-summary]");
-const atlasMetric = document.querySelector("[data-atlas-metric]");
-const atlasProof = document.querySelector("[data-atlas-proof]");
-const atlasSteps = Array.from(document.querySelectorAll("[data-atlas-step]"));
-const atlasDots = Array.from(document.querySelectorAll("[data-atlas-dot]"));
+const build = document.querySelector("[data-build]");
+const buildChapters = Array.from(document.querySelectorAll("[data-build-step]"));
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-const atlasChapters = [
-  {
-    title: "Swiss market credibility",
-    summary: "Built local trust as Managing Director Switzerland and legal representative for Amadeus.",
-    metric: "15+ years",
-    proof: "Executive continuity inside Amadeus",
-  },
-  {
-    title: "DACH OTA revenue leadership",
-    summary: "Led commercial relationships across leisure and air-focused online travel agency portfolios.",
-    metric: "13M€",
-    proof: "Annual OTA revenue responsibility",
-  },
-  {
-    title: "European expansion",
-    summary: "Expanded leisure technology across France, Benelux, Scandinavia, and CESE.",
-    metric: "6M€",
-    proof: "International P&L ownership",
-  },
-  {
-    title: "Startup ecosystem builder",
-    summary: "Leads Amadeus Launchpad Europe from scouting through onboarding and graduation.",
-    metric: "1.5M€",
-    proof: "ACV responsibility",
-  },
-];
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const lerp = (start, end, t) => start + (end - start) * t;
+const ease = (t) => 1 - Math.pow(1 - clamp(t), 3);
+const subProgress = (progress, start, end) => ease(clamp((progress - start) / (end - start)));
+
+const partRanges = {
+  shell: [0.02, 0.18],
+  header: [0.08, 0.22],
+  passenger: [0.18, 0.34],
+  route: [0.32, 0.5],
+  details: [0.5, 0.66],
+  stub: [0.62, 0.78],
+  barcode: [0.74, 0.9],
+  stamp: [0.9, 1.0],
+};
+
+const legRanges = [
+  [0.34, 0.4],
+  [0.4, 0.46],
+  [0.46, 0.52],
+  [0.52, 0.58],
+];
+
+const arrowRanges = [
+  [0.37, 0.43],
+  [0.43, 0.49],
+  [0.49, 0.55],
+];
 
 let rafId = null;
-let activeAtlasIndex = -1;
+let activeChapterIndex = -1;
 
-const setAtlasChapter = (index) => {
-  const safeIndex = Math.round(clamp(index, 0, atlasChapters.length - 1));
-  if (safeIndex === activeAtlasIndex) return;
-
-  activeAtlasIndex = safeIndex;
-  const chapter = atlasChapters[safeIndex];
-  if (atlas) atlas.dataset.atlasIndex = String(safeIndex);
-  if (atlasTitle) atlasTitle.textContent = chapter.title;
-  if (atlasSummary) atlasSummary.textContent = chapter.summary;
-  if (atlasMetric) atlasMetric.textContent = chapter.metric;
-  if (atlasProof) atlasProof.textContent = chapter.proof;
-
-  atlasSteps.forEach((step, stepIndex) => step.classList.toggle("is-active", stepIndex === safeIndex));
-  atlasDots.forEach((dot, dotIndex) => dot.classList.toggle("is-active", dotIndex === safeIndex));
+const setActiveChapter = (index) => {
+  if (index === activeChapterIndex) return;
+  activeChapterIndex = index;
+  if (build) build.dataset.buildIndex = String(index);
+  buildChapters.forEach((chapter, idx) => chapter.classList.toggle("is-active", idx === index));
 };
 
-const getAtlasProgress = () => {
-  if (!atlas) return 0;
-  const rect = atlas.getBoundingClientRect();
+const getBuildProgress = () => {
+  if (!build) return 0;
+  const rect = build.getBoundingClientRect();
   const viewport = window.innerHeight || document.documentElement.clientHeight;
-  return clamp((viewport * 0.62 - rect.top) / Math.max(1, rect.height - viewport * 0.6));
+  const total = Math.max(1, rect.height - viewport * 0.7);
+  return clamp((viewport * 0.5 - rect.top) / total);
 };
 
-const getActiveAtlasIndex = () => {
-  if (!atlasSteps.length) return 0;
+const getActiveChapterIndex = () => {
+  if (!buildChapters.length) return 0;
   const viewport = window.innerHeight || document.documentElement.clientHeight;
   const target = viewport * 0.5;
   let bestIndex = 0;
   let bestDistance = Number.POSITIVE_INFINITY;
 
-  atlasSteps.forEach((step, index) => {
-    const rect = step.getBoundingClientRect();
+  buildChapters.forEach((chapter, idx) => {
+    const rect = chapter.getBoundingClientRect();
     const center = rect.top + rect.height / 2;
     const distance = Math.abs(center - target);
     if (distance < bestDistance) {
       bestDistance = distance;
-      bestIndex = index;
+      bestIndex = idx;
     }
   });
 
   return bestIndex;
 };
 
-const updateAtlas = () => {
-  if (!atlas) return;
-  const index = getActiveAtlasIndex();
-  const rawProgress = getAtlasProgress();
-  const chapterProgress = atlasChapters.length <= 1 ? 1 : index / (atlasChapters.length - 1);
-  const progress = motionQuery.matches ? chapterProgress : Math.max(rawProgress, chapterProgress * 0.85);
-  atlas.style.setProperty("--atlas-progress", progress.toFixed(3));
-  setAtlasChapter(index);
+const updateBuild = () => {
+  if (!build) return;
+
+  const reduced = motionQuery.matches;
+  const chapterIndex = getActiveChapterIndex();
+  const rawProgress = getBuildProgress();
+  const chapterProgress = buildChapters.length <= 1 ? 1 : chapterIndex / (buildChapters.length - 1);
+  const progress = reduced ? 1 : Math.max(rawProgress, chapterProgress * 0.95);
+
+  build.style.setProperty("--build-progress", progress.toFixed(3));
+
+  Object.entries(partRanges).forEach(([key, [start, end]]) => {
+    const partProgress = reduced ? 1 : subProgress(progress, start, end);
+    build.style.setProperty(`--${key}-p`, partProgress.toFixed(3));
+  });
+
+  legRanges.forEach(([start, end], idx) => {
+    const legProgress = reduced ? 1 : subProgress(progress, start, end);
+    build.style.setProperty(`--leg${idx}-p`, legProgress.toFixed(3));
+  });
+
+  arrowRanges.forEach(([start, end], idx) => {
+    const arrowProgress = reduced ? 1 : subProgress(progress, start, end);
+    build.style.setProperty(`--arrow${idx}-p`, arrowProgress.toFixed(3));
+  });
+
+  setActiveChapter(chapterIndex);
 };
 
 const updateHero = () => {
@@ -108,7 +113,7 @@ const updatePage = () => {
   rafId = null;
   if (header) header.classList.toggle("is-scrolled", window.scrollY > 12);
   updateHero();
-  updateAtlas();
+  updateBuild();
 };
 
 const requestUpdate = () => {
