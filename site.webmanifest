@@ -1,0 +1,17 @@
+{
+  "name": "Oliver Käsermann",
+  "short_name": "Oliver Käsermann",
+  "description": "Senior travel-tech executive based in Zurich.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111316",
+  "theme_color": "#111316",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

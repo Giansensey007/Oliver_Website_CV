@@ -8,13 +8,22 @@
   <meta property="og:title" content="Oliver Käsermann | Travel-Tech Executive">
   <meta property="og:description" content="Startup ecosystems, international sales leadership, and market expansion in travel technology.">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Oliver Käsermann">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Oliver Käsermann | Travel-Tech Executive">
+  <meta name="twitter:description" content="Startup ecosystems, international sales leadership, and market expansion in travel technology.">
   <title>Oliver Käsermann | Travel-Tech Executive</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Oliver Käsermann home">
       <span class="brand-mark">OK</span>
@@ -28,8 +37,8 @@
     </nav>
   </header>
 
-  <main id="top">
-    <section class="hero section-shell">
+  <main id="main-content">
+    <section class="hero section-shell" id="top">
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Zurich, Switzerland · Swiss citizen</p>
@@ -62,23 +71,26 @@
       </div>
     </section>
 
-    <section class="section-shell stats" aria-label="Key metrics">
-      <div class="stat-card">
-        <strong>15+</strong>
-        <span>years at Amadeus</span>
-      </div>
-      <div class="stat-card">
-        <strong>1.5M€</strong>
-        <span>ACV responsibility</span>
-      </div>
-      <div class="stat-card">
-        <strong>13M€</strong>
-        <span>annual OTA revenue</span>
-      </div>
-      <div class="stat-card">
-        <strong>6M€</strong>
-        <span>international P&amp;L</span>
-      </div>
+    <section class="section-shell" aria-labelledby="metrics-title">
+      <h2 class="visually-hidden" id="metrics-title">Key metrics</h2>
+      <dl class="stats">
+        <div class="stat-card">
+          <dt>15+</dt>
+          <dd>years at Amadeus</dd>
+        </div>
+        <div class="stat-card">
+          <dt>1.5M€</dt>
+          <dd>ACV responsibility</dd>
+        </div>
+        <div class="stat-card">
+          <dt>13M€</dt>
+          <dd>annual OTA revenue</dd>
+        </div>
+        <div class="stat-card">
+          <dt>6M€</dt>
+          <dd>international P&amp;L</dd>
+        </div>
+      </dl>
     </section>
 
     <section class="section-shell intro-grid" aria-labelledby="what-i-do">
@@ -208,15 +220,31 @@
       <div class="expertise-grid">
         <article>
           <h3>Strategic</h3>
-          <p>Startup ecosystems · P&amp;L management · Sales leadership · Business development</p>
+          <ul class="tag-list">
+            <li>Startup ecosystems</li>
+            <li>P&amp;L management</li>
+            <li>Sales leadership</li>
+            <li>Business development</li>
+          </ul>
         </article>
         <article>
           <h3>Operational</h3>
-          <p>Account management · Team leadership · Stakeholder management · Deal negotiation</p>
+          <ul class="tag-list">
+            <li>Account management</li>
+            <li>Team leadership</li>
+            <li>Stakeholder management</li>
+            <li>Deal negotiation</li>
+          </ul>
         </article>
         <article>
           <h3>Industry</h3>
-          <p>Travel technology · Online travel agencies · GDS · Tour operators · Leisure platforms</p>
+          <ul class="tag-list">
+            <li>Travel technology</li>
+            <li>Online travel agencies</li>
+            <li>GDS</li>
+            <li>Tour operators</li>
+            <li>Leisure platforms</li>
+          </ul>
         </article>
       </div>
     </section>
@@ -240,20 +268,20 @@
       </div>
     </section>
 
-    <section class="section-shell language-band" aria-label="Languages">
-      <div>
+    <ul class="section-shell language-band" aria-label="Languages">
+      <li>
         <span>German</span>
         <strong>Native</strong>
-      </div>
-      <div>
+      </li>
+      <li>
         <span>English</span>
         <strong>Negotiation level</strong>
-      </div>
-      <div>
+      </li>
+      <li>
         <span>French</span>
         <strong>Conversation level</strong>
-      </div>
-    </section>
+      </li>
+    </ul>
 
     <section class="section-shell contact" id="contact" aria-labelledby="contact-title">
       <p class="eyebrow">Let's connect</p>
@@ -261,7 +289,7 @@
       <p>
         For a full CV or a focused conversation, contact Oliver by email.
       </p>
-      <a class="button primary" href="mailto:oliver.kaesermann@gmail.com">oliver.kaesermann@gmail.com</a>
+      <a class="button primary contact-email" href="mailto:oliver.kaesermann@gmail.com">oliver.kaesermann@gmail.com</a>
     </section>
   </main>
 

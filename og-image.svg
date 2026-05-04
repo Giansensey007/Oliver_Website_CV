@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Oliver Käsermann travel technology executive">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#3b4249"/>
+      <stop offset=".48" stop-color="#252b31"/>
+      <stop offset="1" stop-color="#111316"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".18" cy=".2" r=".8">
+      <stop offset="0" stop-color="#7eb8da" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#7eb8da" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <path d="M112 494h976" stroke="#7eb8da" stroke-opacity=".32" stroke-width="2"/>
+  <circle cx="180" cy="494" r="8" fill="#7eb8da"/>
+  <circle cx="520" cy="494" r="8" fill="#7eb8da" opacity=".65"/>
+  <circle cx="875" cy="494" r="8" fill="#7eb8da" opacity=".45"/>
+  <text x="112" y="150" fill="#7eb8da" font-family="Inter, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">ZURICH · TRAVEL TECHNOLOGY</text>
+  <text x="112" y="260" fill="#f4f7f8" font-family="Inter, Helvetica, Arial, sans-serif" font-size="86" font-weight="800" letter-spacing="-5">Oliver Käsermann</text>
+  <text x="112" y="340" fill="#f4f7f8" font-family="Inter, Helvetica, Arial, sans-serif" font-size="44" font-weight="600" opacity=".84">Senior travel-tech executive</text>
+  <text x="112" y="408" fill="#f4f7f8" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="400" opacity=".72">Startup ecosystems · Sales leadership · Market expansion</text>
+  <text x="112" y="560" fill="#a8d4ef" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="700">15+ years at Amadeus</text>
+</svg>
