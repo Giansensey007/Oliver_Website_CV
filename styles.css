@@ -76,6 +76,23 @@ a:focus-visible,
   transition: transform 180ms ease;
 }
 
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+[data-reveal-group] [data-reveal] {
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
+}
+
 .skip-link:focus {
   transform: translateY(0);
 }
@@ -471,9 +488,20 @@ h3 {
   background:
     linear-gradient(rgba(244, 247, 248, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(244, 247, 248, 0.055) 1px, transparent 1px),
-    radial-gradient(circle at 22% 66%, rgba(126, 184, 218, 0.2), transparent 12rem),
+    radial-gradient(circle at calc(22% + var(--atlas-progress) * 60%) calc(66% - var(--atlas-progress) * 28%), rgba(126, 184, 218, 0.32), transparent 12rem),
     rgba(17, 19, 22, 0.38);
   background-size: auto, 54px 54px, auto, auto;
+  transition: transform 220ms ease-out;
+  transform: scale(calc(1 + var(--atlas-progress) * 0.04));
+}
+
+.atlas-map > * {
+  transition: transform 280ms ease-out;
+}
+
+.atlas-map > .atlas-route-line,
+.atlas-map > .atlas-node {
+  transform: translate3d(calc(var(--atlas-progress) * -2%), 0, 0);
 }
 
 .atlas-route-line {
@@ -491,9 +519,10 @@ h3 {
   inset: 0;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 0 calc(8px + var(--atlas-progress) * 22px) rgba(126, 184, 218, calc(0.25 + var(--atlas-progress) * 0.55));
   transform: scaleX(var(--atlas-progress));
   transform-origin: left;
-  transition: transform 120ms ease-out;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease-out;
 }
 
 .atlas-node {
@@ -543,8 +572,20 @@ h3 {
   color: #071015;
   border-color: transparent;
   background: linear-gradient(135deg, var(--accent-strong), var(--accent));
-  box-shadow: 0 0 28px rgba(126, 184, 218, 0.38);
-  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 0 36px rgba(126, 184, 218, 0.55);
+  transform: translateY(-6px) scale(1.12);
+}
+
+@keyframes atlas-node-pulse {
+  0%, 100% { box-shadow: 0 0 32px rgba(126, 184, 218, 0.45); }
+  50% { box-shadow: 0 0 50px rgba(126, 184, 218, 0.78); }
+}
+
+[data-atlas-index="0"] [data-atlas-node="0"],
+[data-atlas-index="1"] [data-atlas-node="1"],
+[data-atlas-index="2"] [data-atlas-node="2"],
+[data-atlas-index="3"] [data-atlas-node="3"] {
+  animation: atlas-node-pulse 2.4s ease-in-out infinite;
 }
 
 .atlas-progress {
@@ -607,21 +648,28 @@ h3 {
   min-height: 72vh;
   padding: clamp(26px, 4vw, 44px);
   border-radius: var(--radius-lg);
-  opacity: 0.42;
+  opacity: 0.32;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.055), transparent 48%),
     rgba(28, 32, 37, 0.72);
-  transform: translateY(18px) scale(0.985);
-  transition: opacity 220ms ease, transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  filter: blur(1.5px);
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
 }
 
 .atlas-step.is-active {
   opacity: 1;
-  border-color: rgba(126, 184, 218, 0.42);
+  border-color: rgba(126, 184, 218, 0.55);
   background:
-    radial-gradient(circle at 18% 0%, rgba(126, 184, 218, 0.14), transparent 20rem),
-    rgba(28, 32, 37, 0.82);
-  transform: translateY(0) scale(1);
+    radial-gradient(circle at 18% 0%, rgba(126, 184, 218, 0.18), transparent 20rem),
+    rgba(28, 32, 37, 0.92);
+  filter: blur(0);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(126, 184, 218, 0.18);
 }
 
 .atlas-step span {
@@ -1063,10 +1111,17 @@ h3 {
   }
 
   .atlas-step {
-    opacity: 1;
+    min-height: auto;
     padding: 24px;
     border-radius: 24px;
-    transform: none;
+    opacity: 0.55;
+    filter: blur(0);
+    transform: translateY(8px) scale(0.99);
+  }
+
+  .atlas-step.is-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .atlas-step h3 {
@@ -1175,5 +1230,26 @@ h3 {
   .atlas-route-line::before,
   .atlas-progress::after {
     transition: none;
+  }
+
+  .atlas-map,
+  .atlas-map > .atlas-route-line,
+  .atlas-map > .atlas-node {
+    transform: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-atlas-index] [data-atlas-node] {
+    animation: none !important;
+  }
+
+  .atlas-step {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
